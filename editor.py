@@ -73,7 +73,7 @@ btnPaste=tkinter.Button(master=frameBottom1,text="Title",command=textTitle)
 btnPaste.grid(row=1, column=3)
 
 frameBottom2=tkinter.Frame(master=app)
-frameBottom1.grid(row=2, column=0)
+frameBottom2.grid(row=2, column=0)
 
 btnPaste=tkinter.Button(master=frameBottom2,text="Get status",command=textGetStatus)
 btnPaste.grid(row=0, column=0)
