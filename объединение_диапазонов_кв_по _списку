@@ -1,0 +1,85 @@
+import csv
+
+def work(list1):
+    out=[]
+    outDp=[]
+
+    for i in range(0,len(list1),2):
+        x=list1[i]
+        y=list1[i+1]
+        for j in range(x,y+1):
+    #        print(str(i)+' '+str(x)+' '+str(y)+' '+str(j))
+            try:
+                thing_index=out.index(j)
+            except ValueError:
+                thing_index=-1
+            if thing_index==-1:
+                out.append(j)
+
+    out.sort()
+    print(out)
+
+    flagStart=0
+    flagEnd=0
+    for i in range(0,max(out)+1):
+        try:
+            thing_index=out.index(i)
+            if flagStart==0:
+                flagStart = 1
+                flagEnd = 0
+                outDp.append(i)
+            if i==max(out):
+                outDp.append(i)
+        except ValueError:
+            thing_index=-1
+            if flagStart == 1 and flagEnd==0:
+                flagStart=0
+                flagEnd = 1
+                outDp.append(i-1)
+
+#    outFile.write('строка для записи в файл')
+    return outDp
+#    print(outDp)
+
+outFile=open('c:\\d\\ktvOut.csv','w')
+file_writer=csv.writer(outFile, delimiter = ";", lineterminator="\r")
+
+with open("c:\\d\\ktv.csv") as inFile:
+    # Создаем объект reader, указываем символ-разделитель ","
+    file_reader = csv.reader(inFile, delimiter = ";")
+    # Считывание данных из CSV файла
+    list1=[]
+    BUILDING_ID1=0
+    for row in file_reader:
+        print(row)
+        if BUILDING_ID1==0:
+            BUILDING_ID1 = int(row[1])
+        if BUILDING_ID1==int(row[1]):
+            BUILDING_ID0=int(row[0])
+            BUILDING_ID1=int(row[1])
+            list1.append(int(row[2]))
+            list1.append(int(row[3]))
+        else:
+            outStr=work(list1)
+            outStr.insert(0,BUILDING_ID0)
+            outStr.insert(1,BUILDING_ID1)
+            print(outStr)
+            file_writer.writerow(outStr)
+            list1.clear()
+            BUILDING_ID0 = int(row[0])
+            BUILDING_ID1 = int(row[1])
+            list1.append(int(row[2]))
+            list1.append(int(row[3]))
+    outStr = work(list1)
+    outStr.insert(0, BUILDING_ID0)
+    outStr.insert(1, BUILDING_ID1)
+    print(outStr)
+    file_writer.writerow(outStr)
+    list1.clear()
+
+#list=[1,12,1,18,7,24,13,30,19,36,25,42,31,48,37,54,43,54,55,72,55,66,61,78,67,84,73,90,79,96,85,102,91,106,97,108,1,1,200,205]
+#list1=[1,8,9,16,17,24,25,32,33,40,41,48,49,56,57,65,66,73,74,81,82,89,90,96,136,143,144,151,152,159,160,168]
+#list2=[1,80,109,109,116,116,0,0]
+
+inFile.close()
+outFile.close()
