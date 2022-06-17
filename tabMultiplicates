@@ -1,0 +1,27 @@
+import os, random
+from colorama import init, Fore, Back, Style
+
+def main(a,b,tr,fal):
+    os.system('cls')
+    print(Fore.WHITE)
+    print("╔═════════╦═════════╗")
+    print("║  "+Fore.LIGHTGREEN_EX+"ВЕРНО"+Fore.LIGHTWHITE_EX+"  ║ "+Fore.LIGHTRED_EX+"ОШИБКА"+Fore.LIGHTWHITE_EX+"  ║")
+    print("╠═════════╬═════════╣")
+    print("║   " + Fore.LIGHTGREEN_EX + format(tr,'0>3') + Fore.LIGHTWHITE_EX + "   ║   " + Fore.LIGHTRED_EX + format(fal,'0>3') + Fore.LIGHTWHITE_EX + "   ║")
+    print("╠═════════╬═════════╣")
+    print("║ пример  ║  "+str(a)+" * "+str(b)+"  ║")
+    print("╚═════════╩═════════╝")
+
+init(autoreset=True)
+answer=1;tr=0;fal=0
+
+while answer>0:
+    a=random.randint(1,9)
+    b = random.randint(1, 9)
+    main(a,b,tr,fal)
+    print("ОТВЕТ: ", end='')
+    answer=int(input())
+    if answer==a*b:
+        tr=tr+1
+    else:
+        fal=fal+1
